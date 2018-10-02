@@ -18,3 +18,9 @@
 *.zip
 *.tar.gz
 *.rar
+/target
+.classpath
+.project
+/.settings
+/.c9
+.idea

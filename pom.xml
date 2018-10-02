@@ -9,8 +9,12 @@
     <version>1.0</version>
 
     <properties>
-            <spring.ver>3.2.13.RELEASE</spring.ver>
+        <spring.ver>3.2.13.RELEASE</spring.ver>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
+
+
 
     <dependencies>
         <dependency>
@@ -42,6 +46,14 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.ver}</version>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
