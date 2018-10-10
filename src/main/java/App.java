@@ -1,15 +1,33 @@
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import beans.Client;
+import beans.Event;
+import beans.EventType;
+import loggers.EventLogger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
+import springConfigs.AppConfig;
+import beans.Client;
+import springConfigs.LoggersConfig;
 
+import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class App {
 
+    @Resource(name="client")
     private Client client;
+
+    @Resource (name ="defaultLogger")
     private EventLogger defaultEventLogger;
+
+    @Resource(name = "mapLoggers")
     private Map<EventType,EventLogger> loggers;
+
+    public App() {
+    }
 
     App (Client client, EventLogger eventLogger, Map<EventType,EventLogger> loggers) {
         this.client=client;
@@ -31,11 +49,19 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException {
+//
+//        ConfigurableApplicationContext ctx =
+//                new ClassPathXmlApplicationContext("spring.xml");
+//        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class, LoggersConfig.class);
 
-        ConfigurableApplicationContext ctx =
-                new ClassPathXmlApplicationContext("spring.xml");
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(AppConfig.class,LoggersConfig.class);
+        ctx.scan("");
+        ctx.refresh();
 
         App app = (App) ctx.getBean("app");
+        Client client = (Client) ctx.getBean("client");
+
         Event event =(Event) ctx.getBean("event");
         app.logEvent(event,"Hello 1 some John CONSOLE",EventType.INFO);
 
@@ -46,6 +72,8 @@ public class App {
         app.logEvent(event,"Hello 3 some John CACHEFILE",null);
 
         ctx.close();
+
+
 
 
 

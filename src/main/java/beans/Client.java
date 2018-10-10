@@ -1,12 +1,16 @@
+package beans;
+
+import org.springframework.stereotype.Component;
+
 public class Client {
 
     String id;
     String fullName;
 
-    public Client(String i, String n) {
-        this.id = i;
-        this.fullName = n;
-    }
+//    public Client(String i, String n) {
+//        this.id = i;
+//        this.fullName = n;
+//    }
 
     public void setGreeting(String greeting){
         System.out.println(greeting);
